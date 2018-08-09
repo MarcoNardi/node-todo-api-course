@@ -35,13 +35,7 @@ app.get("/todos", (req, res) => {
 
 app.get("/todos/:id", (req, res) => {
     var id = req.params.id;
-    //check valid
-    //404  send empty
-    //query find by id send 
-    // if error send 400
-    // if success send back if no todo send 404 empty
 
-    // is this bad boi valid?
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
