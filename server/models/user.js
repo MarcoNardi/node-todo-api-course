@@ -44,7 +44,7 @@ schema.methods.generateAuthToken = function () {
     var user = this;
     var access = "auth";
     // var _id = user._id.toHexString()
-    var token = jwt.sign({ _id: user._id.toHexString(), access }, "pippo").toString();
+    var token = jwt.sign({ _id: user._id.toHexString(), access }, process.env.JWT_SECRET).toString();
     user.tokens = user.tokens.concat([{ access, token }]);
     return user.save().then(() => { return token });
 };
@@ -80,7 +80,7 @@ schema.statics.findByToken = function (token) {
     var User = this;
     var decoded
     try {
-        decoded = jwt.verify(token, "pippo");
+        decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (e) {
         return Promise.reject(e);
     }
